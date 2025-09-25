@@ -7,30 +7,32 @@ export const routes: Routes = [
     component: TabsPage,
     children: [
       {
-        path: 'tab1',
-        loadComponent: () =>
-          import('../tab1/tab1.page').then((m) => m.Tab1Page),
+        // 1. Rota do Ranking
+        path: 'ranking',
+        // O caminho aponta para o arquivo .page.ts, e o .then() aponta para a CLASSE.
+        loadComponent: () => import('../ranking/ranking.page').then(m => m.RankingPage)
       },
       {
-        path: 'tab2',
-        loadComponent: () =>
-          import('../tab2/tab2.page').then((m) => m.Tab2Page),
+        // 2. Rota do Calendário
+        path: 'calendario',
+        loadComponent: () => import('../calendario/calendario.page').then(m => m.CalendarioPage)
       },
       {
-        path: 'tab3',
-        loadComponent: () =>
-          import('../tab3/tab3.page').then((m) => m.Tab3Page),
+        // 3. Rota dos Resultados
+        path: 'resultados',
+        loadComponent: () => import('../resultados/resultados.page').then(m => m.ResultadosPage)
       },
       {
+        // Define 'ranking' como a aba inicial
         path: '',
-        redirectTo: '/tabs/tab1',
+        redirectTo: '/tabs/ranking',
         pathMatch: 'full',
       },
     ],
   },
   {
     path: '',
-    redirectTo: '/tabs/tab1',
+    redirectTo: '/tabs/ranking',
     pathMatch: 'full',
   },
 ];
