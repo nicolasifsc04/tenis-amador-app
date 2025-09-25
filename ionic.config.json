@@ -1,0 +1,7 @@
+{
+  "name": "tenis-amador-app",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular-standalone"
+}
