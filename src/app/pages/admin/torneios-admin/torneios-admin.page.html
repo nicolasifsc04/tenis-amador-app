@@ -1,0 +1,75 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/admin/dashboard"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Gestão de Torneios</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="ion-padding">
+
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Novo Torneio</ion-card-title>
+    </ion-card-header>
+
+    <ion-card-content>
+      <form (ngSubmit)="onSubmitCreateTorneio()">
+
+        <ion-list lines="full">
+          <ion-item>
+            <ion-input label="Nome do Torneio" [(ngModel)]="novoTorneio.nome" name="nome" required></ion-input>
+          </ion-item>
+
+          <ion-item>
+            <ion-input label="Local" [(ngModel)]="novoTorneio.local" name="local" required></ion-input>
+          </ion-item>
+
+          <ion-item>
+            <ion-input label="Data Início" type="date" [(ngModel)]="novoTorneio.data_inicio" name="data_inicio" required></ion-input>
+          </ion-item>
+
+          <ion-item>
+            <ion-input label="Categoria (Ex: A, B, C)" [(ngModel)]="novoTorneio.categoria" name="categoria"></ion-input>
+          </ion-item>
+        </ion-list>
+
+        <ion-button
+          expand="block"
+          type="submit"
+          [disabled]="isCreating || !novoTorneio.nome || !novoTorneio.data_inicio || !novoTorneio.local"
+          class="ion-margin-top"
+        >
+          <ion-spinner *ngIf="isCreating"></ion-spinner>
+          <span *ngIf="!isCreating">Criar Torneio</span>
+        </ion-button>
+      </form>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card class="ion-margin-top">
+    <ion-card-header>
+      <ion-card-title>Torneios Existentes</ion-card-title>
+    </ion-card-header>
+
+    <ion-card-content>
+      <div *ngIf="isLoading" class="ion-text-center"><ion-spinner></ion-spinner></div>
+      <p *ngIf="errorMessage" class="ion-text-danger">{{ errorMessage }}</p>
+
+      <ion-list *ngIf="!isLoading && torneios.length > 0" lines="full">
+        <ion-item *ngFor="let torneio of torneios">
+          <ion-label>
+            <h2>{{ torneio.nome }}</h2>
+            <p>Local: {{ torneio.local }} | Data: {{ torneio.data_inicio | date: 'dd/MM/yyyy' }}</p>
+          </ion-label>
+          <ion-badge slot="end" [color]="torneio.status === 'finalizado' ? 'medium' : 'success'">
+            {{ torneio.status }}
+          </ion-badge>
+        </ion-item>
+      </ion-list>
+      <p *ngIf="!isLoading && torneios.length === 0">Nenhum torneio cadastrado.</p>
+    </ion-card-content>
+  </ion-card>
+
+</ion-content>

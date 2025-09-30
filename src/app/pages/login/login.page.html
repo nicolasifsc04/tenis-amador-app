@@ -1,0 +1,41 @@
+<ion-content [fullscreen]="true" class="ion-padding ion-text-center">
+
+  <div style="margin-top: 10vh;">
+    <ion-icon name="tennisball" size="large" color="primary"></ion-icon>
+    <h1>Acesso à Gestão</h1>
+    <p>Dono do Torneio</p>
+  </div>
+
+  <form (ngSubmit)="onSubmitLogin()">
+
+    <ion-list lines="full" class="ion-margin-top">
+
+      <ion-item>
+        <ion-icon name="mail-outline" slot="start"></ion-icon>
+        <ion-input label="E-mail" type="email" [(ngModel)]="email" name="email" required></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-icon name="lock-closed-outline" slot="start"></ion-icon>
+        <ion-input label="Senha" type="password" [(ngModel)]="senha" name="senha" required></ion-input>
+      </ion-item>
+
+    </ion-list>
+
+    <ion-text color="danger" *ngIf="errorMessage">
+      <p>{{ errorMessage }}</p>
+    </ion-text>
+
+    <ion-button
+      expand="block"
+      type="submit"
+      [disabled]="isLoggingIn"
+      class="ion-margin-top"
+      color="primary"
+    >
+      <ion-spinner *ngIf="isLoggingIn"></ion-spinner>
+      <span *ngIf="!isLoggingIn">Entrar</span>
+    </ion-button>
+  </form>
+
+</ion-content>

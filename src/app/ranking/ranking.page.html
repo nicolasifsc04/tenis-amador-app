@@ -1,17 +1,32 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>Ranking de Jogadores</ion-title> </ion-toolbar>
+    <ion-title>Ranking de Jogadores</ion-title>
+  </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
   <ion-header collapse="condense">
     <ion-toolbar>
-      <ion-title size="large">Ranking</ion-title> </ion-toolbar>
+      <ion-title size="large">Ranking</ion-title>
+    </ion-toolbar>
   </ion-header>
 
-  <ion-list>
-      <ion-item>
-          <ion-label>Conteúdo do Ranking (Pronto para API)</ion-label>
-      </ion-item>
+  <ion-list *ngIf="!isLoading && !errorMessage && rankingData.length > 0">
+    <ion-list-header>
+      <ion-label>Pos. / Jogador / Pontuação</ion-label>
+    </ion-list-header>
+
+    <ion-item *ngFor="let jogador of rankingData; let i = index">
+      <ion-label slot="start" class="ion-text-center" style="min-width: 30px;">
+        <span style="font-weight: bold; font-size: 1.2em;">{{ i + 1 }}º</span>
+      </ion-label>
+
+      <ion-label>
+        <h2>{{ jogador.nome }}</h2>
+        <p>Pontuação: {{ jogador.pontos_ranking }} pts</p>
+        <p class="ion-text-wrap">Último jogo: {{ jogador.resultado_ultima_partida }}</p>
+      </ion-label>
+    </ion-item>
   </ion-list>
-</ion-content>
+
+  </ion-content>
